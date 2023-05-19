@@ -123,6 +123,39 @@ WHERE cdea.continent is not null
 SELECT *, (RollingPeopleVaccinated/Population)*100 AS 'Percentage of Pop Vaccinated'
 FROM PopvsVac
 
+-- Create temp table to perform calculation of former query
 
+CREATE TABLE #PercentPopulationVaccinated
+(
+Continent nvarchar(255),
+Location nvarchar(255),
+Date datetime,
+Population numeric,
+New_vaccinations numeric,
+RollingPeopleVaccinated numeric
+)
+
+INSERT into #PercentPopulationVaccinated
+SELECT cdea.continent, cdea.location, cdea.date, cdea.population, cvacs.new_vaccinations
+, SUM(CONVERT(int,cvacs.new_vaccinations)) OVER (Partition by cdea.Location Order by cdea.location, cdea.Date) as RollingPeopleVaccinated
+FROM PortfolioProjectSQL..CovidDeaths cdea
+JOIN PortfolioProjectSQL..CovidVaccinations cvacs
+	On cdea.location = cvacs.location
+	AND cdea.date = cvacs.date
+
+
+SELECT *, (RollingPeopleVaccinated/Population)*100
+FROM #PercentPopulationVaccinated
+
+--Creating a view to visualise data later in tableau
+
+CREATE VIEW PercentPopulationVaccinated as
+SELECT cdea.continent, cdea.location, cdea.date, cdea.population, cvacs.new_vaccinations
+, SUM(CONVERT(int,cvacs.new_vaccinations)) OVER (Partition by cdea.Location Order by cdea.location, cdea.Date) as RollingPeopleVaccinated
+FROM PortfolioProjectSQL..CovidDeaths cdea
+JOIN PortfolioProjectSQL..CovidVaccinations cvacs
+	On cdea.location = cvacs.location
+	and cdea.date = cvacs.date
+WHERE cdea.continent is not null 
 
 
