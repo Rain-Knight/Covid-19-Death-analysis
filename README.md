@@ -1,8 +1,8 @@
-# Covid-19-exploratory-data-analysis
+# Covid-19-Death-Analysis
 
 The COVID-19 pandemic has had a significant impact on global health and the economy.
 
-This data analysis project aims to provide insights into the relationships of certain variables surrounding the beginning (Febrary, 2020 - April, 2021) of the Covid-19 pandemic in New Zealand and worldwide.
+This exploratory data analysis project aims to provide insights into the relationships of certain variables surrounding the beginning (Febrary, 2020 - April, 2021) of the Covid-19 pandemic in New Zealand and worldwide.
 
 This is done by using publicly available datasets from Our World in Data.
 
