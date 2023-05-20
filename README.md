@@ -1,4 +1,4 @@
-# Covid-19-Death-analysis
+# Covid-19-exploratory-data-analysis
 
 The COVID-19 pandemic has had a significant impact on global health and the economy.
 
